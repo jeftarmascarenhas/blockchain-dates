@@ -13,24 +13,9 @@ const datesBlockMocked = {
 describe("NFDDates(Proxy)", () => {
   beforeEach(async () => {
     NFDDates = await ethers.getContractFactory("NFDDates");
-    nfdDates = await upgrades.deployProxy(
-      NFDDates,
-      [datesBlockMocked.name, datesBlockMocked.symbol],
-      {
-        initializer: "initialize",
-      }
-    );
-  });
-
-  it("should retrieve initialized contract name", async () => {
-    const name = (await nfdDates.name()).toString();
-
-    expect(name).to.equal(datesBlockMocked.name);
-  });
-
-  it("should retrieve initialized contract symbol", async () => {
-    const symbol = (await nfdDates.symbol()).toString();
-    expect(symbol).to.equal(datesBlockMocked.symbol);
+    nfdDates = await upgrades.deployProxy(NFDDates, [], {
+      initializer: "initialize",
+    });
   });
 
   it("should set pause contract", async () => {
@@ -78,7 +63,7 @@ describe("NFDDates(Proxy)", () => {
 
     await nfdDates.connect(sellerAddress).createMarketSale(value, { value });
 
-    const resellToken = nfdDates
+    const resellToken = await nfdDates
       .connect(sellerAddress)
       .resellToken(value, tokenId);
 
@@ -105,9 +90,7 @@ describe("NFDDates(Proxy)", () => {
 
     const newValue = ethers.utils.parseEther("1.5");
 
-    const resellToken = nfdDates
-      .connect(sellerAddress)
-      .resellToken(newValue, tokenId);
+    const resellToken = await nfdDates.resellToken(newValue, tokenId);
 
     await expect(resellToken)
       .to.emit(nfdDates, "Transfer")

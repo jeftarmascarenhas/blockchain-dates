@@ -7,7 +7,6 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "hardhat/console.sol";
 
 contract NFDDates is
     Initializable,
@@ -38,11 +37,8 @@ contract NFDDates is
         bool forSale
     );
 
-    function initialize(string memory initName_, string memory initSymbol_)
-        public
-        initializer
-    {
-        __ERC721_init(initName_, initSymbol_);
+    function initialize() public initializer {
+        __ERC721_init("NDF Dates", "NFDD");
         __Ownable_init();
     }
 
@@ -96,12 +92,15 @@ contract NFDDates is
             msg.value > 0 && msg.value >= itemPrice,
             "NFDDates: Price is not correct"
         );
+        require(
+            idToMarketItem[tokenId_].seller != msg.sender,
+            "NFDDates: You are the owner"
+        );
+
         uint256 platformValue = (msg.value * percentage_) / 100;
         uint256 sellValue = msg.value - platformValue;
 
         address payable seller = idToMarketItem[tokenId_].seller;
-
-        console.log("oldSeller = ", seller);
 
         _transfer(address(this), msg.sender, tokenId_);
         idToMarketItem[tokenId_].price = msg.value;
@@ -115,26 +114,16 @@ contract NFDDates is
             idToMarketItem[tokenId_].price,
             false
         );
-        console.log("newSeller = ", idToMarketItem[tokenId_].seller);
         payable(seller).transfer(sellValue);
     }
 
-    function resellToken(uint256 price_, uint256 tokenId_)
-        public
-        payable
-        whenNotPaused
-    {
-        require(
-            idToMarketItem[tokenId_].seller == msg.sender,
-            "NFDDates: Only owner of token"
-        );
-
+    function updateMakertItem(uint256 price_, uint256 tokenId_) private {
         idToMarketItem[tokenId_].forSale = true;
         idToMarketItem[tokenId_].price = price_;
         idToMarketItem[tokenId_].seller = payable(msg.sender);
         idToMarketItem[tokenId_].owner = payable(address(this));
 
-        _itemsSold.decrement();
+        // _itemsSold.decrement();
 
         emit MarketItemCreated(
             tokenId_,
@@ -143,6 +132,23 @@ contract NFDDates is
             price_,
             true
         );
+    }
+
+    function resellToken(uint256 price_, uint256 tokenId_)
+        public
+        whenNotPaused
+    {
+        require(
+            idToMarketItem[tokenId_].seller == msg.sender,
+            "NFDDates: Only owner of token"
+        );
+
+        require(
+            idToMarketItem[tokenId_].forSale == false,
+            "NFDDates: Item is for sale"
+        );
+
+        updateMakertItem(price_, tokenId_);
 
         _transfer(msg.sender, address(this), tokenId_);
     }
