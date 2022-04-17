@@ -2,35 +2,60 @@
   "manifestVersion": "3.2",
   "proxies": [
     {
-      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-      "txHash": "0x82b56598572fa7acd63ef223245f2c4be8a3c7eef059afc43ebb29fb09980c60",
+      "address": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+      "txHash": "0x14d2d3cf792a20a27fda21ddc12405f86141261e9fbbb54a762c509e0d183acb",
+      "kind": "uups"
+    },
+    {
+      "address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+      "txHash": "0xf15507d2fc6d14353e170141840a621b7955e395f5f938c5dcd77752a1fd8837",
       "kind": "uups"
     },
     {
       "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-      "txHash": "0x3bc355680777867d281dc16d23738e5e69662466b755c41cd0339217f73bd19c",
+      "txHash": "0x73aa23107d1ff624030f54137949e137a1c940bb65c8f532cccd7efe6d71d74d",
       "kind": "uups"
     },
     {
-      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-      "txHash": "0x82c167fe6bc0dc111ab4823d6f5d3e08479f3535c9104b6ab4549ee6771ff5db",
-      "kind": "uups"
-    },
-    {
-      "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
-      "txHash": "0x32eccdb29c733b6dbf8913424735d87d27f78e4638cb6d0d2e9d68c7fc4e28be",
+      "address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+      "txHash": "0x5f4e1ba11f35f4b93db448f054a84bbf6a454cb6e32b1cb6df3db0e75964dbb3",
       "kind": "uups"
     },
     {
       "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
-      "txHash": "0x2ebfcdf9cacec2b3465a9911c659fba1b0391f8717dd56bb9f34d4e85fff9a89",
+      "txHash": "0x464ef4159e9093c9abeaa7134ee4c2be8879d3cb066c6d510b735e817852be69",
+      "kind": "uups"
+    },
+    {
+      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      "txHash": "0xc9bddb0d5c273f5a70b72937267b4390c32f5588c6019d78fc4cdde6d60e0e9a",
+      "kind": "uups"
+    },
+    {
+      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "txHash": "0xeb4560cc7d530e34ef9d2930f510a387f54e3baf6626af7efed1541e50bc649a",
+      "kind": "uups"
+    },
+    {
+      "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+      "txHash": "0x28ce0edecbc1536a02852a47dd58a10548eb02dceb2c5fe41e02f5822267508d",
+      "kind": "uups"
+    },
+    {
+      "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "txHash": "0xaf80525a80d68a7f3a85e2a5321117e23868170cb17673e2c2a689d3cafa0df1",
+      "kind": "uups"
+    },
+    {
+      "address": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+      "txHash": "0xec949ed59a363a9db652614b91d457bf3bc5aacd5ef81a10ee507bc4e620808c",
       "kind": "uups"
     }
   ],
   "impls": {
-    "013340e5ff08c06f97e83ce4cfc6aacce25df10817f65b11c7ff2206ed227374": {
+    "3602c8dc4ea71f4f84e66ca6965fc5549246f0b6b9c1d389f074c5f4bd97a122": {
       "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-      "txHash": "0xadd7b536f8c97f99437dcb3180280a093643f0d40d80c4d43ebca0dd77e3fc4f",
+      "txHash": "0x3b82dbda3d41278ff5b5f1878f5e5baa3de87cc391f2bf76600aa51904aa5f50",
       "layout": {
         "storage": [
           {
@@ -106,66 +131,106 @@
             "src": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol:102"
           },
           {
-            "label": "_name",
+            "label": "__gap",
             "offset": 0,
             "slot": "251",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC165Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol:41"
+          },
+          {
+            "label": "_name",
+            "offset": 0,
+            "slot": "301",
             "type": "t_string_storage",
-            "contract": "NFDDates",
-            "src": "contracts/NFDDates.sol:17"
+            "contract": "ERC721Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol:25"
           },
           {
             "label": "_symbol",
             "offset": 0,
-            "slot": "252",
+            "slot": "302",
             "type": "t_string_storage",
-            "contract": "NFDDates",
-            "src": "contracts/NFDDates.sol:18"
-          },
-          {
-            "label": "_tokenIds",
-            "offset": 0,
-            "slot": "253",
-            "type": "t_struct(Counter)1184_storage",
-            "contract": "NFDDates",
-            "src": "contracts/NFDDates.sol:20"
+            "contract": "ERC721Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol:28"
           },
           {
             "label": "_owners",
             "offset": 0,
-            "slot": "254",
+            "slot": "303",
             "type": "t_mapping(t_uint256,t_address)",
-            "contract": "NFDDates",
-            "src": "contracts/NFDDates.sol:23"
+            "contract": "ERC721Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol:31"
           },
           {
             "label": "_balances",
             "offset": 0,
-            "slot": "255",
+            "slot": "304",
             "type": "t_mapping(t_address,t_uint256)",
-            "contract": "NFDDates",
-            "src": "contracts/NFDDates.sol:25"
+            "contract": "ERC721Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol:34"
           },
           {
             "label": "_tokenApprovals",
             "offset": 0,
-            "slot": "256",
+            "slot": "305",
             "type": "t_mapping(t_uint256,t_address)",
-            "contract": "NFDDates",
-            "src": "contracts/NFDDates.sol:27"
+            "contract": "ERC721Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol:37"
           },
           {
             "label": "_operatorApprovals",
             "offset": 0,
-            "slot": "257",
+            "slot": "306",
             "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
+            "contract": "ERC721Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol:40"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "307",
+            "type": "t_array(t_uint256)44_storage",
+            "contract": "ERC721Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol:458"
+          },
+          {
+            "label": "_tokenIds",
+            "offset": 0,
+            "slot": "351",
+            "type": "t_struct(Counter)3839_storage",
             "contract": "NFDDates",
-            "src": "contracts/NFDDates.sol:29"
+            "src": "contracts/NFDDates.sol:19"
+          },
+          {
+            "label": "_itemsSold",
+            "offset": 0,
+            "slot": "352",
+            "type": "t_struct(Counter)3839_storage",
+            "contract": "NFDDates",
+            "src": "contracts/NFDDates.sol:20"
+          },
+          {
+            "label": "idToMarketItem",
+            "offset": 0,
+            "slot": "353",
+            "type": "t_mapping(t_uint256,t_struct(MarketItem)4303_storage)",
+            "contract": "NFDDates",
+            "src": "contracts/NFDDates.sol:22"
           }
         ],
         "types": {
           "t_address": {
             "label": "address",
             "numberOfBytes": "20"
+          },
+          "t_address_payable": {
+            "label": "address payable",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)44_storage": {
+            "label": "uint256[44]",
+            "numberOfBytes": "1408"
           },
           "t_array(t_uint256)49_storage": {
             "label": "uint256[49]",
@@ -195,11 +260,15 @@
             "label": "mapping(uint256 => address)",
             "numberOfBytes": "32"
           },
+          "t_mapping(t_uint256,t_struct(MarketItem)4303_storage)": {
+            "label": "mapping(uint256 => struct NFDDates.MarketItem)",
+            "numberOfBytes": "32"
+          },
           "t_string_storage": {
             "label": "string",
             "numberOfBytes": "32"
           },
-          "t_struct(Counter)1184_storage": {
+          "t_struct(Counter)3839_storage": {
             "label": "struct Counters.Counter",
             "members": [
               {
@@ -210,6 +279,42 @@
               }
             ],
             "numberOfBytes": "32"
+          },
+          "t_struct(MarketItem)4303_storage": {
+            "label": "struct NFDDates.MarketItem",
+            "members": [
+              {
+                "label": "tokenId",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "seller",
+                "type": "t_address_payable",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "owner",
+                "type": "t_address_payable",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "price",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "forSale",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "4"
+              }
+            ],
+            "numberOfBytes": "160"
           },
           "t_uint256": {
             "label": "uint256",
