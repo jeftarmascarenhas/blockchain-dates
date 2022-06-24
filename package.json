@@ -1,5 +1,12 @@
 {
   "name": "hardhat-project",
+  "private": true,
+  "scripts": {
+    "blockchain": "npx hardhat node",
+    "compile": "npx hardhat compile",
+    "compile:watch": "npx hardhat watch compilation",
+    "test": "npx hardhat test && npx hardhat watch test"
+  },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.5",
     "@nomiclabs/hardhat-etherscan": "^3.0.3",
@@ -19,6 +26,7 @@
     "ethers": "^5.6.2",
     "hardhat": "^2.9.3",
     "hardhat-gas-reporter": "^1.0.8",
+    "hardhat-watcher": "^2.3.0",
     "prettier": "^2.6.2",
     "prettier-plugin-solidity": "^1.0.0-beta.13",
     "solhint": "^3.3.7",

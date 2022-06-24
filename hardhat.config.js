@@ -4,6 +4,7 @@ require("@nomiclabs/hardhat-etherscan");
 require("@nomiclabs/hardhat-waffle");
 require("@openzeppelin/hardhat-upgrades");
 require("hardhat-gas-reporter");
+require("hardhat-watcher");
 require("solidity-coverage");
 
 // This is a sample Hardhat task. To learn how to create your own go to
@@ -50,5 +51,15 @@ module.exports = {
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
+  },
+  watcher: {
+    compilation: {
+      tasks: ["compile"],
+    },
+    test: {
+      tasks: [{ command: "test", params: { testFiles: ["{path}"] } }],
+      files: ["./test/**/*"],
+      verbose: true,
+    },
   },
 };
