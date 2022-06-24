@@ -5,10 +5,7 @@ const { ethers, upgrades } = require("hardhat");
 let NFDDates;
 let nfdDates;
 
-const datesBlockMocked = {
-  name: "DatesBlock",
-  symbol: "DB",
-};
+const baseTokenURI = "https://api.chronobox.com/";
 
 describe("NFDDates(Proxy)", () => {
   beforeEach(async () => {
@@ -19,105 +16,29 @@ describe("NFDDates(Proxy)", () => {
   });
 
   it("should set pause contract", async () => {
-    const [_, address1] = await ethers.getSigners();
-    const value = ethers.utils.parseEther("1.0");
+    const coinPrice = ethers.utils.parseEther("1.0");
     await nfdDates.setPause();
     await expect(
-      nfdDates.connect(address1).createMarketSale(value, { value })
+      nfdDates.makeMintDate(coinPrice, 72134, { value: coinPrice })
     ).to.be.revertedWith("Pausable: paused");
   });
 
-  it("should buy new tokenId and to emit event Transfer", async () => {
-    const [_, buyerAddress] = await ethers.getSigners();
-    const value = ethers.utils.parseEther("1.5");
+  it("should mint a date", async () => {
+    const [_, account] = await ethers.getSigners();
+    const coinPrice = ethers.utils.parseEther("1.0");
+    const code = 72134;
+    await nfdDates.connect(account).makeMintDate(coinPrice, code, {
+      value: coinPrice,
+    });
 
-    const mintNewToken = nfdDates
-      .connect(buyerAddress)
-      .createMarketSale(value, { value });
+    const balance = await nfdDates.balanceOf(account.address);
+    const totalSupply = (await nfdDates.totalSupply()).toNumber();
+    const ownerOf = await nfdDates.ownerOf(code);
+    const tokenURI = await nfdDates.tokenURI(code);
 
-    await expect(mintNewToken)
-      .to.emit(nfdDates, "Transfer")
-      .withArgs(ethers.constants.AddressZero, buyerAddress.address, 1);
-
-    await expect(mintNewToken)
-      .to.emit(nfdDates, "MarketItemCreated")
-      .withArgs(1, buyerAddress.address, buyerAddress.address, value, false);
-
-    const balanceOf = (
-      await nfdDates.balanceOf(buyerAddress.address)
-    ).toNumber();
-
-    expect(balanceOf).to.equal(1);
-
-    const ownerOf = await nfdDates.ownerOf(1);
-    expect(buyerAddress.address).to.equal(ownerOf);
-
-    const contractBalance = await nfdDates.getBalance();
-    expect(value).to.equal(contractBalance);
+    expect(balance).to.equal(1);
+    expect(totalSupply).to.equal(1);
+    expect(tokenURI).to.equal(`${baseTokenURI}${code}`);
+    expect(ownerOf).to.equal(account.address);
   });
-
-  it("should set the specific tokenId to resellToken", async () => {
-    const [buyerAddress, sellerAddress] = await ethers.getSigners();
-    const value = ethers.utils.parseEther("1");
-    const tokenId = 1;
-
-    await nfdDates.connect(sellerAddress).createMarketSale(value, { value });
-
-    const resellToken = await nfdDates
-      .connect(sellerAddress)
-      .resellToken(value, tokenId);
-
-    await expect(resellToken)
-      .to.emit(nfdDates, "Transfer")
-      .withArgs(sellerAddress.address, nfdDates.address, 1);
-
-    await expect(resellToken)
-      .to.emit(nfdDates, "MarketItemCreated")
-      .withArgs(1, sellerAddress.address, nfdDates.address, value, true);
-  });
-
-  it("should transfer token to another owner", async () => {
-    const [sellerAddress, buyerAddress] = await ethers.getSigners();
-    const value = ethers.utils.parseEther("0.5");
-    const tokenId = 1;
-
-    await nfdDates.connect(sellerAddress).createMarketSale(value, { value });
-
-    const sellerBalanceStart = (
-      await nfdDates.balanceOf(sellerAddress.address)
-    ).toNumber();
-    expect(sellerBalanceStart).to.equal(1);
-
-    const newValue = ethers.utils.parseEther("1.5");
-
-    const resellToken = await nfdDates.resellToken(newValue, tokenId);
-
-    await expect(resellToken)
-      .to.emit(nfdDates, "Transfer")
-      .withArgs(sellerAddress.address, nfdDates.address, tokenId);
-
-    await expect(resellToken)
-      .to.emit(nfdDates, "MarketItemCreated")
-      .withArgs(1, sellerAddress.address, nfdDates.address, newValue, true);
-
-    const percentagePlatform = 5;
-
-    await nfdDates
-      .connect(buyerAddress)
-      .createResellMarketSale(percentagePlatform, tokenId, {
-        value: newValue,
-      });
-
-    const sellerBalance = (
-      await nfdDates.balanceOf(sellerAddress.address)
-    ).toNumber();
-    expect(sellerBalance).to.equal(0);
-
-    const buyerBalance = (
-      await nfdDates.balanceOf(buyerAddress.address)
-    ).toNumber();
-    expect(buyerBalance).to.equal(1);
-  });
-
-  it("should send all balance when withDraw it is called ", async () => {});
 });
